@@ -30,6 +30,8 @@
 
 ## To run this project it is necessary to have nodeJs, and everything corresponding to nestJs. You must also have Docker installed. The first step is to give permission to our bash file that will help us run the project easily.
 
+The 'sudo ./setup.sh' script already has all the configurations to run the project locally if you meet the conditions previously stated and necessary to run the project, we use PostGis in this project to manage the space area in the geolocations and give better management to these, also through the Script p.json we use seed to create test data by default
+
 ```bash 
 $ chmod +x setup.sh
 ```
@@ -47,10 +49,32 @@ $ sudo ./setup.sh
 
 ## This would be enough to run the project at your location.
 
+To run the project again if I have already run the script and everything was correct, I can run it in the following way
+
+## Running the app
+```bash
+# watch mode
+$ sudo npm run start:dev
+```
+
+To enter the PGAdmin Administrator and see the local db you can do the following, at the root of the project execute
 
 ```bash
-$ npm install
+# watch mode
+$ docker ps
 ```
+
+Then copy the CONTAINER ID of taxi24-postgres example '2c2154a226fc', after we have this id we execute the command
+
+```bash
+# watch mode
+$ docker inspect <ID DE CONTAINER>
+```
+
+After executing this command, we copy the IP Address of Our Local DB and go to the following Route
+(http://localhost:5050/login?next=%2F) The credentials are the ones we gave in the docker-compose.yml
+
+There we connect to our DB where the Host is the IP address that we previously copied obtained from the docker inspect <CONTAINER ID> command and the data is also what we gave to the db in the docker-compose.yml
 
 ## Support
 
