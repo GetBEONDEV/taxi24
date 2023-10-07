@@ -7,12 +7,10 @@ export class DriverDto {
   @ApiProperty({ description: 'driver name' })
   name: string;
 
-  @IsDecimal()
   @IsNotEmpty()
   @ApiProperty({ description: 'location latitude' })
   latitude: number;
 
-  @IsDecimal()
   @IsNotEmpty()
   @ApiProperty({ description: 'location longitude' })
   longitude: number;

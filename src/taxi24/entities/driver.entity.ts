@@ -21,8 +21,8 @@ export class Driver {
   @Column('float8')
   longitude: number;
 
-  @Column({ default: 'available' })
-  status: 'available' | 'busy';
+  @Column({ type: 'varchar', length: 255 })
+  status: string;
 
   @Exclude()
   @CreateDateColumn({
