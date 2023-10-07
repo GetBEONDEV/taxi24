@@ -29,5 +29,11 @@ DB_NAME=my_db
 docker exec -it $CONTAINER_NAME psql -U $DB_USER -d $DB_NAME -c "CREATE EXTENSION postgis;"
 
 # Ejecutar el proyecto
+echo "Creando Migracion..."
+npm run migrations:generate ./src/database/migrations/init
+
+echo "Corriendo Migracion..."
+npm run migrations:run
+
 echo "Iniciando el proyecto..."
 npm run start:dev
