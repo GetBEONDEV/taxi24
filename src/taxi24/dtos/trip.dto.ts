@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsInt, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsInt,
+  IsString,
+  IsNumber,
+  IsPositive,
+} from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class TripDto {
@@ -17,4 +23,9 @@ export class TripDto {
   status: string;
 }
 
-export class UpdateTripDto extends PartialType(TripDto) {}
+export class UpdateTripDto extends PartialType(TripDto) {
+  @IsNumber()
+  @IsPositive()
+  @ApiProperty({ description: 'Trip amount' })
+  amount: number;
+}

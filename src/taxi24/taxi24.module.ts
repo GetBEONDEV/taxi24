@@ -14,9 +14,10 @@ import { InvoicesService } from './services/invoices/invoices.service';
 import { Driver } from './entities/driver.entity';
 import { Trip } from './entities/trip.entity';
 import { Passenger } from './entities/passenger.entity';
+import { Invoice } from './entities/invoice.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Driver, Trip, Passenger])],
+  imports: [TypeOrmModule.forFeature([Driver, Trip, Passenger, Invoice])],
   controllers: [
     DriversController,
     TripsController,

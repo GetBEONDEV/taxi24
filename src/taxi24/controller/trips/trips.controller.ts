@@ -23,6 +23,10 @@ export class TripsController {
     @Param('id') id: number,
     @Body() changeStatusDto: UpdateTripDto,
   ) {
-    return this.tripService.completeTrip(id, changeStatusDto.status);
+    return this.tripService.completeTrip(
+      id,
+      changeStatusDto.status,
+      changeStatusDto.amount,
+    );
   }
 }

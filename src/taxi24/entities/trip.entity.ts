@@ -1,6 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Driver } from './driver.entity';
 import { Passenger } from './passenger.entity';
+import { Invoice } from './invoice.entity';
 
 @Entity()
 export class Trip {
@@ -15,4 +23,8 @@ export class Trip {
 
   @Column({ type: 'varchar', length: 255, default: 'active' })
   status: string;
+
+  @OneToOne(() => Invoice, { cascade: true })
+  @JoinColumn()
+  invoice: Invoice;
 }

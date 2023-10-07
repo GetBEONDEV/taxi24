@@ -20,7 +20,9 @@ export class PassengersService {
   }
 
   async getAllPassengers(): Promise<Passenger[]> {
-    return await this.passengerRepository.find({ relations: ['trips'] });
+    return await this.passengerRepository.find({
+      relations: ['trips', 'trips.invoice'],
+    });
   }
 
   async getPassengerById(id: number): Promise<Passenger> {

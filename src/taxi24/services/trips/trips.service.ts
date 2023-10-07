@@ -1,11 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
-import { Repository, EntityManager } from 'typeorm';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Passenger } from 'src/taxi24/entities/passenger.entity';
 import { Trip } from 'src/taxi24/entities/trip.entity';
 import { Driver } from 'src/taxi24/entities/driver.entity';
 import { TripDto } from 'src/taxi24/dtos/trip.dto';
-import { number } from 'joi';
+import { Invoice } from 'src/taxi24/entities/invoice.entity';
 
 @Injectable()
 export class TripsService {
@@ -16,6 +20,8 @@ export class TripsService {
     private readonly passengerRepository: Repository<Passenger>,
     @InjectRepository(Trip)
     private readonly tripRepository: Repository<Trip>,
+    @InjectRepository(Invoice)
+    private readonly invoiceRepository: Repository<Invoice>,
   ) {}
 
   async createTrip(createTripDto: TripDto) {
@@ -61,15 +67,35 @@ export class TripsService {
     });
   }
 
-  async completeTrip(id: number, newStatus: string): Promise<Trip> {
+  async completeTrip(
+    id: number,
+    newStatus: string,
+    amount: number,
+  ): Promise<Trip> {
     const trip = await this.tripRepository.findOne({
       where: { id },
       relations: ['driver', 'passenger'],
     });
     if (!trip) {
-      throw new Error('Trip not found'); // Puedes personalizar esta excepción según tus necesidades
+      throw new Error('Trip not found');
+    }
+    if (trip.status === 'completed') {
+      throw new BadRequestException(
+        'Trip is already completed and cannot be updated',
+      );
     }
     trip.status = newStatus;
-    return await this.tripRepository.save(trip);
+    await this.tripRepository.save(trip);
+
+    const invoice = new Invoice();
+    invoice.trip = trip;
+    invoice.amount = amount;
+
+    await this.invoiceRepository.save(invoice);
+
+    return await this.tripRepository.findOne({
+      where: { id },
+      relations: ['invoice'],
+    });
   }
 }
