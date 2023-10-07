@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Trip } from './trip.entity';
 
 @Entity()
 export class Driver {
@@ -21,7 +23,7 @@ export class Driver {
   @Column('float8')
   longitude: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, default: 'available' })
   status: string;
 
   @Exclude()
@@ -36,4 +38,7 @@ export class Driver {
     default: () => 'CURRENT_TIMESTAMP',
   })
   updateAt: Date;
+
+  @OneToMany(() => Trip, (trip) => trip.driver)
+  trips: Trip[];
 }
