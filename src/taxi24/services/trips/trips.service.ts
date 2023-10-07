@@ -98,4 +98,23 @@ export class TripsService {
       relations: ['invoice'],
     });
   }
+
+  async seedDataTrip() {
+    // Asumimos que ya existen conductores y pasajeros en la DB
+    const driver = await this.findOneDriver(1); // Tomando el primer conductor como ejemplo
+    const passenger = await this.findOnePassenger(1); // Tomando el primer pasajero como ejemplo
+
+    const trip1 = new Trip();
+    trip1.driver = driver;
+    trip1.passenger = passenger;
+
+    const trip2 = new Trip();
+    trip2.driver = driver;
+    trip2.passenger = passenger;
+    const trips = await this.tripRepository.save([trip1, trip2]);
+
+    await this.completeTrip(1, 'completed', 3456);
+
+    return trips;
+  }
 }

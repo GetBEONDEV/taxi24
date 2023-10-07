@@ -28,7 +28,7 @@ export class PassengersService {
   async getPassengerById(id: number): Promise<Passenger> {
     const passenger = await this.passengerRepository.findOne({
       where: { id },
-      relations: ['trips'],
+      relations: ['trips', 'trips.invoice'],
     });
 
     if (!passenger) {
@@ -48,5 +48,19 @@ export class PassengersService {
         ) ASC
         LIMIT 3
     `);
+  }
+
+  async seedDataPassenger() {
+    const passenger1 = this.passengerRepository.create({
+      name: 'Brayan',
+    });
+    const passenger2 = this.passengerRepository.create({
+      name: 'Nicolas',
+    });
+    const passenger3 = this.passengerRepository.create({
+      name: 'Natalia',
+    });
+
+    await this.passengerRepository.save([passenger1, passenger2, passenger3]);
   }
 }

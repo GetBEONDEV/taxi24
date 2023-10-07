@@ -25,7 +25,7 @@
     "migrations:drop": "npm run typeorm -- schema:drop",
     "typeorm:revert-migration": "npm run typeorm -d ./typeorm.data-source.ts -- migration:revert",
     "typeorm:clear": "npm run typeorm cache:clear",
-    "seed": "ts-node -r tsconfig-paths/register src/seed.ts"
+    "seed": "ts-node -r tsconfig-paths/register src/seed-data.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^2.0.0",

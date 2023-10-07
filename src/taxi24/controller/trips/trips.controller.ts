@@ -18,7 +18,7 @@ export class TripsController {
     return this.tripService.getActiveTrips();
   }
 
-  @Put(':id/status')
+  @Put(':id/complete')
   changeStatus(
     @Param('id') id: number,
     @Body() changeStatusDto: UpdateTripDto,

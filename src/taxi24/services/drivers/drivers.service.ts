@@ -63,4 +63,27 @@ export class DriversService {
 
     return drivers;
   }
+
+  async seedDataDriver() {
+    const driver1 = this.driversRepository.create({
+      name: 'Juan',
+      latitude: 40.7128,
+      longitude: -74.006,
+      status: 'available',
+    });
+    const driver2 = this.driversRepository.create({
+      name: 'Maria',
+      latitude: 40.7128,
+      longitude: -74.0061,
+      status: 'available',
+    });
+    const driver3 = this.driversRepository.create({
+      name: 'Pedro',
+      latitude: 40.7128,
+      longitude: -74.0062,
+      status: 'available',
+    });
+
+    await this.driversRepository.save([driver1, driver2, driver3]);
+  }
 }

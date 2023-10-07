@@ -35,5 +35,8 @@ npm run migrations:generate ./src/database/migrations/init
 echo "Corriendo Migracion..."
 npm run migrations:run
 
+echo "Insertando datos por defecto..."
+npm run seed
+
 echo "Iniciando el proyecto..."
 npm run start:dev

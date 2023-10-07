@@ -9,14 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('nuevo') // 👈 Without slashes
-  newEndpoint() {
-    return 'yo soy nuevo';
-  }
-
-  @Get('/ruta/') // 👈 With slashes
-  hello() {
-    return 'con /sas/';
-  }
 }
